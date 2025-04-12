@@ -14,28 +14,29 @@ import { app, server } from "./lib/socket.js";
 dotenv.config();
 
 const PORT = process.env.PORT;
-const __dirname = path.resolve(); //Get the current directory name
+const __dirname = path.resolve();
 
-app.use(express.json()); //Allow express to parse JSON data in the request body
-app.use(cookieParser()); //Allow express to parse cookies from the request header
+app.use(express.json());
+app.use(cookieParser());
 app.use(
   cors({
-    origin: "http://localhost:5173", //Replace with your frontend URL
-    credentials: true, //Allow credentials to be sent with the request
+    origin: "http://localhost:5173",
+    credentials: true,
   })
-); //Allow express to accept requests from different origins
+);
 
 app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
   app.use(express.static(path.join(__dirname, "../frontend/dist")));
+
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend", "dist", "index.html"));
   });
 }
 
 server.listen(PORT, () => {
-  console.log("Server is running on port " + PORT);
+  console.log("server is running on PORT:" + PORT);
   connectDB();
 });
