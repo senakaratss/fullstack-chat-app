@@ -29,10 +29,21 @@ app.use("/api/auth", authRoutes);
 app.use("/api/messages", messageRoutes);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  // Log the static path to ensure it's correct
+  const staticPath = path.join(__dirname, "../frontend/dist");
+  console.log("Serving static files from:", staticPath);
 
+  // Serve static files
+  app.use(express.static(staticPath));
+
+  // Catch-all route to serve index.html for any unmatched routes
   app.get("*", (req, res) => {
-    res.sendFile(path.join(__dirname, "frontend", "dist", "index.html"));
+    res.sendFile(path.join(staticPath, "index.html"), (err) => {
+      if (err) {
+        console.error("Error sending index.html:", err);
+        res.status(500).send("Server Error");
+      }
+    });
   });
 }
 
