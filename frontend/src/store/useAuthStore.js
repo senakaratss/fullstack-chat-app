@@ -8,7 +8,7 @@ const BASE_URL =
 
 export const useAuthStore = create((set, get) => ({
   authUser: null,
-  isSigninUp: false,
+  isSigningUp: false,
   isLoggingIn: false,
   isUpdatingProfile: false,
   onlineUsers: [],
