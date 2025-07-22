@@ -5,9 +5,13 @@ This is a real-time chat application that enables users to exchange messages and
 ## Features
 
 -Real-time messaging with Socket.io
+
 -User authentication
+
 -Image sharing in chat
+
 -Responsive design
+
 -MongoDB for storing users and messages
 
 ## Technologies Used
